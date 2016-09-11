@@ -1,6 +1,8 @@
 
 var myCalculator =calculatorModule();
-var currentDisplay = 0;
+var operation = null;
+var currentDisplay = '';
+
 var theDisplay = document.getElementById('display');
 theDisplay.innerHTML = currentDisplay ;
 
@@ -12,30 +14,75 @@ function clearDisplay(num){
 }
 var clear = document.getElementById('clear');
 clear.addEventListener('click', function(){
-myCalculator.clearMemory();
-clearDisplay('');
+  myCalculator.clearMemory();
+  clearDisplay('');
 });
 
 function updatedisplay(newcontent) {
-    var display = document.getElementById('display');
-    display.innerHTML = display.innerHTML + newcontent;
+  var display = document.getElementById('display');
+  display.innerHTML = display.innerHTML + newcontent;
+}
+
+var addNumbers = document.getElementById('add');
+addNumbers.addEventListener('click', function(){
+  storedNum = parseFloat(theDisplay.innerHTML);
+  myCalculator.load(storedNum);
+  clearDisplay('');
+  operation = 'add';
+});
+
+var subtractNumbers = document.getElementById('subtract');
+subtractNumbers.addEventListener('click', function(){
+  storedNum = parseFloat(theDisplay.innerHTML);
+  myCalculator.load(storedNum);
+  clearDisplay('');
+  operation = 'subtract';
+});
+
+var multiplyNumbers = document.getElementById('multiply');
+multiplyNumbers.addEventListener('click', function(){
+  storedNum = parseFloat(theDisplay.innerHTML);
+  myCalculator.load(storedNum);
+  clearDisplay('');
+  operation = 'multiply';
+});
+
+var divideNumbers = document.getElementById('divide');
+divideNumbers.addEventListener('click', function(){
+  storedNum = parseFloat(theDisplay.innerHTML);
+  myCalculator.load(storedNum);
+  clearDisplay('');
+  operation = 'divide';
+});
+
+var period = document.getElementById('period');
+period.addEventListener('click', function(){
+  theDisplay.innerHTML += '.';
+});
+
+
+var equals = document.getElementById('equal');
+equals.addEventListener('click', function(){
+  storedNum = parseFloat(theDisplay.innerHTML);
+  switch (operation){
+    case 'add':
+      myCalculator.add(storedNum);
+      break;
+    case 'subtract':
+      myCalculator.subtract(storedNum);
+      break;
+    case 'multiply':
+      myCalculator.multiply(storedNum);
+      break;
+    case 'divide':
+      myCalculator.divide(storedNum);
+      break;
   }
-
-    var addThings = document.getElementById('add');
-    addThings.addEventListener('click', function(){
-      storedNum = Number(theDisplay.innerHTML);
-      var result = myCalculator.add(Number(storedNum));
-      console.log(myCalculator.getTotal());
-      clearDisplay('');
+  theDisplay.innerHTML = myCalculator.getTotal();
+});
 
 
 
-
-
-
-
-  });
-//}
 
 var zero = document.getElementById('0');
 zero.addEventListener('click', function(){
@@ -77,3 +124,4 @@ var nine = document.getElementById('9');
 nine.addEventListener('click', function(){
   updatedisplay('9');
 });
+
