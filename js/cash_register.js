@@ -2,6 +2,7 @@
 var myCalculator =calculatorModule();
 var operation = null;
 var currentDisplay = '';
+var numberstore =0;
 
 var theDisplay = document.getElementById('display');
 theDisplay.innerHTML = currentDisplay ;
@@ -14,7 +15,7 @@ function clearDisplay(num){
 }
 var clear = document.getElementById('clear');
 clear.addEventListener('click', function(){
-  myCalculator.clearMemory();
+  //myCalculator.clearMemory();
   clearDisplay('');
 });
 
@@ -81,7 +82,25 @@ equals.addEventListener('click', function(){
   theDisplay.innerHTML = myCalculator.getTotal();
 });
 
+var deposit = document.getElementById('deposit');
+deposit.addEventListener('click', function(){
+  storedNum = parseFloat(theDisplay.innerHTML);
+  numberstore+=storedNum;
+  clearDisplay('');
+});
 
+var balance = document.getElementById('balance');
+balance.addEventListener('click', function(){
+  storedNum = parseFloat(theDisplay.innerHTML);
+  theDisplay.innerHTML = numberstore;
+});
+
+var withdraw = document.getElementById('withdraw');
+withdraw.addEventListener('click', function(){
+  storedNum = parseFloat(theDisplay.innerHTML);
+  theDisplay.innerHTML = numberstore -= theDisplay.innerHTML;
+
+});
 
 
 var zero = document.getElementById('0');
